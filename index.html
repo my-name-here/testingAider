@@ -13,12 +13,12 @@
             margin: 0;
             background-color: #faf8ef;
         }
-        .grid {
+        .game-board {
             display: grid;
             grid-template-columns: repeat(4, 100px);
             grid-gap: 10px;
         }
-        .cell {
+        .tile {
             width: 100px;
             height: 100px;
             background-color: #eee4da;
@@ -28,10 +28,25 @@
             align-items: center;
             font-size: 24px;
         }
+        .game-over {
+            display: none;
+            text-align: center;
+            color: #776e65;
+        }
+        .game-over button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+        }
     </style>
 </head>
 <body>
-    <div class="grid" id="game-board"></div>
+    <div class="game-board" id="gameBoard"></div>
+    <div class="game-over" id="gameOver">
+        <h1>Game Over!</h1>
+        <button onclick="newGame()">Start New Game</button>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>

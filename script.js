@@ -1,154 +1,182 @@
 const boardSize = 4;
 let board = Array.from({ length: boardSize }, () => Array(boardSize).fill(null));
+let gameOver = false;
 
 function initGame() {
-    for (let i = 0; i < 2; i++) {
-        addRandomTile();
-    }
+    resetBoard();
+    addRandomTile();
+    addRandomTile();
     renderBoard();
 }
 
-function addRandomTile() {
-    let emptyCells = [];
+function resetBoard() {
     for (let row = 0; row < boardSize; row++) {
         for (let col = 0; col < boardSize; col++) {
-            if (board[row][col] === null) {
+            board[row][col] = null;
+        }
+    }
+    gameOver = false;
+    document.getElementById('gameOver').style.display = 'none';
+}
+
+function addRandomTile() {
+    const emptyCells = [];
+    for (let row = 0; row < boardSize; row++) {
+        for (let col = 0; col < boardSize; col++) {
+            if (!board[row][col]) {
                 emptyCells.push({ row, col });
             }
         }
     }
     if (emptyCells.length > 0) {
-        let { row, col } = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+        const { row, col } = emptyCells[Math.floor(Math.random() * emptyCells.length)];
         board[row][col] = Math.random() < 0.9 ? 2 : 4;
     }
 }
 
 function renderBoard() {
-    const boardElement = document.getElementById('game-board');
-    boardElement.innerHTML = '';
+    const gameBoard = document.getElementById('gameBoard');
+    gameBoard.innerHTML = '';
     for (let row = 0; row < boardSize; row++) {
         for (let col = 0; col < boardSize; col++) {
-            const cell = document.createElement('div');
-            cell.classList.add('cell');
-            if (board[row][col] !== null) {
-                cell.textContent = board[row][col];
-                cell.classList.add(`cell-${board[row][col]}`);
+            const tile = document.createElement('div');
+            tile.classList.add('tile');
+            if (board[row][col]) {
+                tile.textContent = board[row][col];
+                tile.style.backgroundColor = getTileColor(board[row][col]);
             }
-            boardElement.appendChild(cell);
+            gameBoard.appendChild(tile);
         }
     }
 }
 
-function moveUp() {
-    for (let col = 0; col < boardSize; col++) {
-        let emptyRow = 0;
-        for (let row = 1; row < boardSize; row++) {
-            if (board[row][col] !== null) {
-                if (board[emptyRow][col] === null || board[emptyRow][col] === board[row][col]) {
-                    if (board[emptyRow][col] === board[row][col]) {
-                        // Merge tiles
-                        board[emptyRow][col] = board[row][col] * 2;
-                        board[row][col] = null;
-                    } else {
-                        board[emptyRow][col] = board[row][col];
-                        emptyRow++;
-                    }
-                } else {
-                    emptyRow = row;
-                }
-            }
-        }
+function getTileColor(value) {
+    switch (value) {
+        case 2: return '#eee4da';
+        case 4: return '#ede0c8';
+        case 8: return '#f2b179';
+        case 16: return '#f59563';
+        case 32: return '#f67c5f';
+        case 64: return '#f65e3b';
+        case 128: return '#edcf72';
+        case 256: return '#edcc61';
+        case 512: return '#edc950';
+        case 1024: return '#edc53f';
+        case 2048: return '#edc22e';
+        default: return '#eee4da';
     }
-    addRandomTile();
-    renderBoard();
 }
 
-function moveDown() {
-    for (let col = 0; col < boardSize; col++) {
-        let emptyRow = boardSize - 1;
-        for (let row = boardSize - 2; row >= 0; row--) {
-            if (board[row][col] !== null) {
-                if (board[emptyRow][col] === null || board[emptyRow][col] === board[row][col]) {
-                    if (board[emptyRow][col] === board[row][col]) {
-                        // Merge tiles
-                        board[emptyRow][col] = board[row][col] * 2;
-                        board[row][col] = null;
-                    } else {
-                        board[emptyRow][col] = board[row][col];
-                        emptyRow--;
-                    }
-                } else {
-                    emptyRow = row;
-                }
-            }
-        }
-    }
-    addRandomTile();
-    renderBoard();
-}
-
-function moveLeft() {
+function checkGameOver() {
     for (let row = 0; row < boardSize; row++) {
-        let emptyCol = 0;
-        for (let col = 1; col < boardSize; col++) {
-            if (board[row][col] !== null) {
-                if (board[row][emptyCol] === null || board[row][emptyCol] === board[row][col]) {
-                    if (board[row][emptyCol] === board[row][col]) {
-                        // Merge tiles
-                        board[row][emptyCol] = board[row][col] * 2;
-                        board[row][col] = null;
-                    } else {
-                        board[row][emptyCol] = board[row][col];
-                        emptyCol++;
-                    }
-                } else {
-                    emptyCol = col;
-                }
+        for (let col = 0; col < boardSize; col++) {
+            if (!board[row][col]) {
+                return false;
+            }
+            if ((row > 0 && board[row][col] === board[row - 1][col]) ||
+                (row < boardSize - 1 && board[row][col] === board[row + 1][col]) ||
+                (col > 0 && board[row][col] === board[row][col - 1]) ||
+                (col < boardSize - 1 && board[row][col] === board[row][col + 1])) {
+                return false;
             }
         }
     }
-    addRandomTile();
-    renderBoard();
+    return true;
 }
 
-function moveRight() {
-    for (let row = 0; row < boardSize; row++) {
-        let emptyCol = boardSize - 1;
-        for (let col = boardSize - 2; col >= 0; col--) {
-            if (board[row][col] !== null) {
-                if (board[row][emptyCol] === null || board[row][emptyCol] === board[row][col]) {
-                    if (board[row][emptyCol] === board[row][col]) {
-                        // Merge tiles
-                        board[row][emptyCol] = board[row][col] * 2;
-                        board[row][col] = null;
-                    } else {
-                        board[row][emptyCol] = board[row][col];
-                        emptyCol--;
-                    }
-                } else {
-                    emptyCol = col;
-                }
-            }
-        }
-    }
+function newGame() {
+    resetBoard();
+    addRandomTile();
     addRandomTile();
     renderBoard();
+    gameOver = false;
+    document.getElementById('gameOver').style.display = 'none';
 }
 
 document.addEventListener('keydown', (event) => {
-    switch (event.key) {
+    if (gameOver) return;
+
+    const key = event.key;
+    let moved = false;
+
+    switch (key) {
         case 'ArrowUp':
-            moveUp();
+            for (let col = 0; col < boardSize; col++) {
+                let newRow = 0;
+                for (let row = 1; row < boardSize; row++) {
+                    if (board[row][col]) {
+                        if (!board[newRow][col] || board[newRow][col] === board[row][col]) {
+                            board[newRow][col] = board[newRow][col] ? board[newRow][col] * 2 : board[row][col];
+                            board[row][col] = null;
+                            newRow++;
+                        } else {
+                            newRow++;
+                        }
+                    }
+                }
+            }
+            moved = true;
             break;
         case 'ArrowDown':
-            moveDown();
+            for (let col = 0; col < boardSize; col++) {
+                let newRow = boardSize - 1;
+                for (let row = boardSize - 2; row >= 0; row--) {
+                    if (board[row][col]) {
+                        if (!board[newRow][col] || board[newRow][col] === board[row][col]) {
+                            board[newRow][col] = board[newRow][col] ? board[newRow][col] * 2 : board[row][col];
+                            board[row][col] = null;
+                            newRow--;
+                        } else {
+                            newRow--;
+                        }
+                    }
+                }
+            }
+            moved = true;
             break;
         case 'ArrowLeft':
-            moveLeft();
+            for (let row = 0; row < boardSize; row++) {
+                let newCol = 0;
+                for (let col = 1; col < boardSize; col++) {
+                    if (board[row][col]) {
+                        if (!board[row][newCol] || board[row][newCol] === board[row][col]) {
+                            board[row][newCol] = board[row][newCol] ? board[row][newCol] * 2 : board[row][col];
+                            board[row][col] = null;
+                            newCol++;
+                        } else {
+                            newCol++;
+                        }
+                    }
+                }
+            }
+            moved = true;
             break;
         case 'ArrowRight':
-            moveRight();
+            for (let row = 0; row < boardSize; row++) {
+                let newCol = boardSize - 1;
+                for (let col = boardSize - 2; col >= 0; col--) {
+                    if (board[row][col]) {
+                        if (!board[row][newCol] || board[row][newCol] === board[row][col]) {
+                            board[row][newCol] = board[row][newCol] ? board[row][newCol] * 2 : board[row][col];
+                            board[row][col] = null;
+                            newCol--;
+                        } else {
+                            newCol--;
+                        }
+                    }
+                }
+            }
+            moved = true;
             break;
+    }
+
+    if (moved) {
+        addRandomTile();
+        renderBoard();
+        gameOver = checkGameOver();
+        if (gameOver) {
+            document.getElementById('gameOver').style.display = 'block';
+        }
     }
 });
 
