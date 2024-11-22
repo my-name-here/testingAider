@@ -26,6 +26,7 @@ function resetBoard() {
     }
     gameOver = false;
     score = 0;
+    document.getElementById('score').innerText = `Score: ${score}`;  
     document.getElementById('gameOver').style.display = 'none';
 }
 
