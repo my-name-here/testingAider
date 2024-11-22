@@ -113,6 +113,7 @@ document.addEventListener('keydown', (event) => {
         case 'ArrowUp':
             for (let col = 0; col < boardSize; col++) {
                 let newRow = 0;
+                let points = 0;
                 for (let row = 1; row < boardSize; row++) {
                     if (board[row][col]) {
                         if (!board[newRow][col] || board[newRow][col] === board[row][col]) {
@@ -124,12 +125,16 @@ document.addEventListener('keydown', (event) => {
                         }
                     }
                 }
+                if (points > 0) {                                              
+                    updateScore(points);                                       
+                }  
             }
             moved = true;
             break;
         case 'ArrowDown':
             for (let col = 0; col < boardSize; col++) {
                 let newRow = boardSize - 1;
+                let points = 0;
                 for (let row = boardSize - 2; row >= 0; row--) {
                     if (board[row][col]) {
                         if (!board[newRow][col] || board[newRow][col] === board[row][col]) {
@@ -141,12 +146,16 @@ document.addEventListener('keydown', (event) => {
                         }
                     }
                 }
+                if (points > 0) {                                              
+                    updateScore(points);                                       
+                }  
             }
             moved = true;
             break;
         case 'ArrowLeft':
             for (let row = 0; row < boardSize; row++) {
                 let newCol = 0;
+                let points = 0;
                 for (let col = 1; col < boardSize; col++) {
                     if (board[row][col]) {
                         if (!board[row][newCol] || board[row][newCol] === board[row][col]) {
@@ -158,12 +167,16 @@ document.addEventListener('keydown', (event) => {
                         }
                     }
                 }
+                if (points > 0) {                                              
+                    updateScore(points);                                       
+                }  
             }
             moved = true;
             break;
         case 'ArrowRight':
             for (let row = 0; row < boardSize; row++) {
                 let newCol = boardSize - 1;
+                let points = 0;
                 for (let col = boardSize - 2; col >= 0; col--) {
                     if (board[row][col]) {
                         if (!board[row][newCol] || board[row][newCol] === board[row][col]) {
@@ -175,6 +188,9 @@ document.addEventListener('keydown', (event) => {
                         }
                     }
                 }
+                if (points > 0) {                                              
+                    updateScore(points);                                       
+                }  
             }
             moved = true;
             break;
