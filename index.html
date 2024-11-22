@@ -13,6 +13,11 @@
             margin: 0;
             background-color: #bbada0;
         }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
         .board {
             display: grid;
             grid-template-columns: repeat(4, 100px);
@@ -29,10 +34,20 @@
             font-size: 24px;
             font-weight: bold;
         }
+        .score-container {
+            margin-top: 10px;
+            text-align: right;
+        }
     </style>
 </head>
 <body>
-    <div class="board" id="game-board"></div>
+    <div class="container">
+        <div class="board" id="game-board"></div>
+        <div class="score-container">
+            <span>Score: <span id="score">0</span></span>
+            <span>High Score: <span id="high-score">0</span></span>
+        </div>
+    </div>
     <script src="game.js"></script>
 </body>
 </html>
