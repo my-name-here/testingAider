@@ -18,6 +18,17 @@
             flex-direction: column;
             align-items: center;
         }
+        .score-container {
+            margin-top: 10px;
+            text-align: right;
+        }
+        .score-box, .high-score-box {
+            display: inline-block;
+            padding: 10px;
+            background-color: #f9f6f2;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
         .board {
             display: grid;
             grid-template-columns: repeat(4, 100px);
@@ -34,22 +45,10 @@
             font-size: 24px;
             font-weight: bold;
         }
-        .score-container {
-            margin-top: 10px;
-            text-align: right;
-        }
-        .score-box, .high-score-box {
-            display: inline-block;
-            padding: 10px;
-            background-color: #f9f6f2;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="board" id="game-board"></div>
         <div class="score-container">
             <div class="score-box">
                 <span>Score: <span id="score">0</span></span>
@@ -58,6 +57,7 @@
                 <span>High Score: <span id="high-score">0</span></span>
             </div>
         </div>
+        <div class="board" id="game-board"></div>
     </div>
     <script src="game.js"></script>
 </body>
