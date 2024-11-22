@@ -38,14 +38,25 @@
             margin-top: 10px;
             text-align: right;
         }
+        .score-box, .high-score-box {
+            display: inline-block;
+            padding: 10px;
+            background-color: #f9f6f2;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="board" id="game-board"></div>
         <div class="score-container">
-            <span>Score: <span id="score">0</span></span>
-            <span>High Score: <span id="high-score">0</span></span>
+            <div class="score-box">
+                <span>Score: <span id="score">0</span></span>
+            </div>
+            <div class="high-score-box">
+                <span>High Score: <span id="high-score">0</span></span>
+            </div>
         </div>
     </div>
     <script src="game.js"></script>
