@@ -1,6 +1,15 @@
+
+
 const boardSize = 4;
 let board = Array.from({ length: boardSize }, () => Array(boardSize).fill(null));
 let gameOver = false;
+                                                                                
+let score = 0;                                                                 
+                                                                                
+function updateScore(points) {                                                 
+    score += points;                                                           
+    document.getElementById('score').innerText = `Score: ${score}`;            
+}    
 
 function initGame() {
     resetBoard();
@@ -16,6 +25,7 @@ function resetBoard() {
         }
     }
     gameOver = false;
+    score = 0;
     document.getElementById('gameOver').style.display = 'none';
 }
 
