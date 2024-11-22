@@ -28,6 +28,7 @@ body {
     position: absolute;
     top: 50%;
     left: 50%;
+    font-size: 18px;
     transform: translate(-50%, -50%);
     background-color: rgba(0, 0, 0, 0.7); /* Darkened background */
     width: 250px; /* Increased width */
