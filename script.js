@@ -207,6 +207,7 @@ document.addEventListener('keydown', (event) => {
         gameOver = checkGameOver();
         if (gameOver) {
             document.getElementById('gameOver').style.display = 'block';
+            document.getElementById('final-score').innerText = score; 
         }
     }
 });
