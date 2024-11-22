@@ -24,7 +24,7 @@ function addRandomTile() {
 }
 
 function renderBoard() {
-    const boardElement = document.getElementById('board');
+    const boardElement = document.getElementById('game-board');
     boardElement.innerHTML = '';
     for (let row = 0; row < boardSize; row++) {
         for (let col = 0; col < boardSize; col++) {
