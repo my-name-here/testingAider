@@ -2,16 +2,10 @@ const boardSize = 4;
 let board = Array.from({ length: boardSize }, () => Array(boardSize).fill(null));
 
 function initGame() {
-    for (let row = 0; row < boardSize; row++) {
-        for (let col = 0; col < boardSize; col++) {
-            const cell = document.createElement('div');
-            cell.classList.add('cell');
-            cell.id = `cell-${row}-${col}`;
-            document.getElementById('game-board').appendChild(cell);
-        }
+    for (let i = 0; i < 2; i++) {
+        addRandomTile();
     }
-    addRandomTile();
-    addRandomTile();
+    renderBoard();
 }
 
 function addRandomTile() {
@@ -24,41 +18,24 @@ function addRandomTile() {
         }
     }
     if (emptyCells.length > 0) {
-        const { row, col } = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+        let { row, col } = emptyCells[Math.floor(Math.random() * emptyCells.length)];
         board[row][col] = Math.random() < 0.9 ? 2 : 4;
-        updateBoard();
     }
 }
 
-function updateBoard() {
+function renderBoard() {
+    const boardElement = document.getElementById('board');
+    boardElement.innerHTML = '';
     for (let row = 0; row < boardSize; row++) {
         for (let col = 0; col < boardSize; col++) {
-            const cell = document.getElementById(`cell-${row}-${col}`);
+            const cell = document.createElement('div');
+            cell.classList.add('cell');
             if (board[row][col] !== null) {
                 cell.textContent = board[row][col];
-                cell.style.backgroundColor = getCellColor(board[row][col]);
-            } else {
-                cell.textContent = '';
-                cell.style.backgroundColor = '#eee4da';
+                cell.classList.add(`cell-${board[row][col]}`);
             }
+            boardElement.appendChild(cell);
         }
-    }
-}
-
-function getCellColor(value) {
-    switch (value) {
-        case 2: return '#776e65';
-        case 4: return '#776e65';
-        case 8: return '#f9ed69';
-        case 16: return '#f3b27a';
-        case 32: return '#f69660';
-        case 64: return '#f77c5f';
-        case 128: return '#edd073';
-        case 256: return '#edcc61';
-        case 512: return '#edc958';
-        case 1024: return '#edc556';
-        case 2048: return '#edc25e';
-        default: return '#eee4da';
     }
 }
 
@@ -68,11 +45,14 @@ function moveUp() {
         for (let row = 1; row < boardSize; row++) {
             if (board[row][col] !== null) {
                 if (board[emptyRow][col] === null || board[emptyRow][col] === board[row][col]) {
-                    board[emptyRow][col] = board[row][col];
-                    if (row !== emptyRow) {
+                    if (board[emptyRow][col] === board[row][col]) {
+                        // Merge tiles
+                        board[emptyRow][col] = board[row][col] * 2;
                         board[row][col] = null;
+                    } else {
+                        board[emptyRow][col] = board[row][col];
+                        emptyRow++;
                     }
-                    emptyRow++;
                 } else {
                     emptyRow = row;
                 }
@@ -80,6 +60,7 @@ function moveUp() {
         }
     }
     addRandomTile();
+    renderBoard();
 }
 
 function moveDown() {
@@ -88,11 +69,14 @@ function moveDown() {
         for (let row = boardSize - 2; row >= 0; row--) {
             if (board[row][col] !== null) {
                 if (board[emptyRow][col] === null || board[emptyRow][col] === board[row][col]) {
-                    board[emptyRow][col] = board[row][col];
-                    if (row !== emptyRow) {
+                    if (board[emptyRow][col] === board[row][col]) {
+                        // Merge tiles
+                        board[emptyRow][col] = board[row][col] * 2;
                         board[row][col] = null;
+                    } else {
+                        board[emptyRow][col] = board[row][col];
+                        emptyRow--;
                     }
-                    emptyRow--;
                 } else {
                     emptyRow = row;
                 }
@@ -100,6 +84,7 @@ function moveDown() {
         }
     }
     addRandomTile();
+    renderBoard();
 }
 
 function moveLeft() {
@@ -108,11 +93,14 @@ function moveLeft() {
         for (let col = 1; col < boardSize; col++) {
             if (board[row][col] !== null) {
                 if (board[row][emptyCol] === null || board[row][emptyCol] === board[row][col]) {
-                    board[row][emptyCol] = board[row][col];
-                    if (col !== emptyCol) {
+                    if (board[row][emptyCol] === board[row][col]) {
+                        // Merge tiles
+                        board[row][emptyCol] = board[row][col] * 2;
                         board[row][col] = null;
+                    } else {
+                        board[row][emptyCol] = board[row][col];
+                        emptyCol++;
                     }
-                    emptyCol++;
                 } else {
                     emptyCol = col;
                 }
@@ -120,6 +108,7 @@ function moveLeft() {
         }
     }
     addRandomTile();
+    renderBoard();
 }
 
 function moveRight() {
@@ -128,11 +117,14 @@ function moveRight() {
         for (let col = boardSize - 2; col >= 0; col--) {
             if (board[row][col] !== null) {
                 if (board[row][emptyCol] === null || board[row][emptyCol] === board[row][col]) {
-                    board[row][emptyCol] = board[row][col];
-                    if (col !== emptyCol) {
+                    if (board[row][emptyCol] === board[row][col]) {
+                        // Merge tiles
+                        board[row][emptyCol] = board[row][col] * 2;
                         board[row][col] = null;
+                    } else {
+                        board[row][emptyCol] = board[row][col];
+                        emptyCol--;
                     }
-                    emptyCol--;
                 } else {
                     emptyCol = col;
                 }
@@ -140,6 +132,7 @@ function moveRight() {
         }
     }
     addRandomTile();
+    renderBoard();
 }
 
 document.addEventListener('keydown', (event) => {
