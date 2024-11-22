@@ -118,6 +118,7 @@ document.addEventListener('keydown', (event) => {
                     if (board[row][col]) {
                         if (!board[newRow][col] || board[newRow][col] === board[row][col]) {
                             board[newRow][col] = board[newRow][col] ? board[newRow][col] * 2 : board[row][col];
+                            points += board[newRow][col];
                             board[row][col] = null;
                             newRow++;
                         } else {
@@ -139,6 +140,7 @@ document.addEventListener('keydown', (event) => {
                     if (board[row][col]) {
                         if (!board[newRow][col] || board[newRow][col] === board[row][col]) {
                             board[newRow][col] = board[newRow][col] ? board[newRow][col] * 2 : board[row][col];
+                            points += board[newRow][col];
                             board[row][col] = null;
                             newRow--;
                         } else {
@@ -160,6 +162,7 @@ document.addEventListener('keydown', (event) => {
                     if (board[row][col]) {
                         if (!board[row][newCol] || board[row][newCol] === board[row][col]) {
                             board[row][newCol] = board[row][newCol] ? board[row][newCol] * 2 : board[row][col];
+                            points += board[row][newCol];
                             board[row][col] = null;
                             newCol++;
                         } else {
@@ -181,6 +184,7 @@ document.addEventListener('keydown', (event) => {
                     if (board[row][col]) {
                         if (!board[row][newCol] || board[row][newCol] === board[row][col]) {
                             board[row][newCol] = board[row][newCol] ? board[row][newCol] * 2 : board[row][col];
+                            points += board[row][newCol];
                             board[row][col] = null;
                             newCol--;
                         } else {
