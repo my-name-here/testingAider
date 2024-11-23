@@ -9,13 +9,12 @@ A simple implementation of the popular 2048 game using HTML, CSS, and JavaScript
 
 ## Features
 - Basic game mechanics of 2048.
-- Responsive design for various screen sizes.
 - High score tracking that updates during gameplay and at the end of each game.
 
 ## Installation
 1. Clone this repository to your local machine:
    ```bash
-   git clone https://github.com/yourusername/2048-clone.git
+   git clone https://github.com/my-name-here/testingAider
    ```
 2. Open the `index.html` file in a web browser to play the game.
 
