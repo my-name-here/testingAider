@@ -19,7 +19,10 @@ function setHighScore(newScore) {
 
 function updateScore(points) {                                                 
     score += points;                                                           
-    document.getElementById('score').innerText = `Score: ${score}`;            
+    document.getElementById('score').innerText = `Score: ${score}`;     
+       
+    // Update high score whenever the score increases                          
+    setHighScore(score);      
 }    
 
 function initGame() {
