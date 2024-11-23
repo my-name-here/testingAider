@@ -13,6 +13,7 @@ function setHighScore(newScore) {
         highScore = newScore;
         localStorage.setItem('highScore', highScore);
     }
+    document.getElementById('high-score').innerText = highScore
 }
 
 function updateScore(points) {                                                 
@@ -217,6 +218,10 @@ document.addEventListener('keydown', (event) => {
         if (gameOver) {
             document.getElementById('gameOver').style.display = 'block';
             document.getElementById('final-score').innerText = score; 
+            if (score > highScore){
+                setHighScore(score)
+            }
+            
         }
     }
 });
