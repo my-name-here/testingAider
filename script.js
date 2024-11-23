@@ -4,8 +4,17 @@ const boardSize = 4;
 let board = Array.from({ length: boardSize }, () => Array(boardSize).fill(null));
 let gameOver = false;
                                                                                 
-let score = 0;                                                                 
-                                                                                
+let score = 0;     
+                                                            
+let highScore = localStorage.getItem('highScore') ? parseInt(localStorage.getItem('highScore')) : 0; // Initialize from local storage
+
+function setHighScore(newScore) {
+    if (newScore > highScore) {
+        highScore = newScore;
+        localStorage.setItem('highScore', highScore);
+    }
+}
+
 function updateScore(points) {                                                 
     score += points;                                                           
     document.getElementById('score').innerText = `Score: ${score}`;            
