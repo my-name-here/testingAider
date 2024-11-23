@@ -7,6 +7,7 @@ let gameOver = false;
 let score = 0;     
                                                             
 let highScore = localStorage.getItem('highScore') ? parseInt(localStorage.getItem('highScore')) : 0; // Initialize from local storage
+document.getElementById('high-score').innerText = highScore
 
 function setHighScore(newScore) {
     if (newScore > highScore) {
