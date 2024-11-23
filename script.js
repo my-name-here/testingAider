@@ -218,9 +218,9 @@ document.addEventListener('keydown', (event) => {
         if (gameOver) {
             document.getElementById('gameOver').style.display = 'block';
             document.getElementById('final-score').innerText = score; 
-            if (score > highScore){
-                setHighScore(score)
-            }
+            
+            setHighScore(score);//don't need to check if score is bigger, since done in the func
+            
             
         }
     }
