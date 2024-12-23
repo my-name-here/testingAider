@@ -1,0 +1,48 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #faf8ef;
+}
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(4, 100px);
+    grid-gap: 10px;
+}
+.tile {
+    width: 100px;
+    height: 100px;
+    background-color: #eee4da;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+}
+.game-over {
+    display: none;
+    text-align: center;
+    color: #ccc; /* Light grey */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 18px;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.7); /* Darkened background */
+    width: 250px; /* Increased width */
+    height: 375px; /* Increased height */
+}
+.game-over button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 18px;
+}
+.score-board {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: #776e65;
+    font-size: 24px;
+}
